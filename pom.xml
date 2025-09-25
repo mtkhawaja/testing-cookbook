@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.6</version>
+        <relativePath/>
+    </parent>
+
+    <version>${revision}</version>
+    <groupId>com.muneebkhawaja</groupId>
+    <artifactId>testing-cookbook</artifactId>
+    <name>Testing Cookbook</name>
+
+    <packaging>pom</packaging>
+    <inceptionYear>2025</inceptionYear>
+    <url>https://github.com/mtkhawaja/testing-cookbook</url>
+
+    <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <java.version>25</java.version>
+        <!-- Project -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <commons-lang3.version>3.19.0</commons-lang3.version>
+        <!-- Plugins -->
+        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+    </properties>
+
+    <modules>
+        <module>modules/embedded-db</module>
+        <module>modules/embedded-kafka</module>
+        <module>modules/containers</module>
+        <module>modules/localstack</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com:mtkhawaja/testing-cookbook.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:mtkhawaja/testing-cookbook.git</developerConnection>
+        <url>https://github.com/mtkhawaja/testing-cookbook</url>
+    </scm>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+                        <!-- https://projectlombok.org/setup/maven -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/flatten-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
