@@ -15,10 +15,9 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- Spring Data JPA and PostgreSQL driver for production code -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -29,20 +28,23 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.21.0</version>  <!-- ensure a recent version -->
             <scope>test</scope>
         </dependency>
-        <!-- Testcontainers PostgreSQL module -->
+        <!-- Testcontainers PostgresSQL module -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
-            <version>1.21.0</version>
             <scope>test</scope>
         </dependency>
         <!-- Spring Boot Test, for @SpringBootTest and TestEntityManager if needed -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
