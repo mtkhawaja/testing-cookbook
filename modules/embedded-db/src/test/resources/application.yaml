@@ -26,7 +26,6 @@ spring:
 ---
 spring:
   config.activate.on-profile: derby-test
-  jpa.defer-datasource-initialization: true
   sql.init.mode: always
   datasource:
     url: jdbc:derby:memory:testdb;create=true
@@ -34,4 +33,5 @@ spring:
     password: sa
     driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
   jpa:
+    defer-datasource-initialization: true
     hibernate.ddl-auto: update

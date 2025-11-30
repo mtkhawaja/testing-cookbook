@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.*;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
+import org.springframework.kafka.support.serializer.JacksonJsonSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class KafkaConfiguration {
         final Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, UUIDSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JacksonJsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(props);
     }
 
@@ -56,12 +56,12 @@ public class KafkaConfiguration {
         final Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, UUIDDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "dummy-group");
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.muneebkhawaja.testing.cookbook.embedded.kafka.*");
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, QuackEvent.class.getName());
+        props.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "com.muneebkhawaja.testing.cookbook.embedded.kafka.*");
+        props.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, QuackEvent.class.getName());
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        final var deserializer = new JsonDeserializer<>(QuackEvent.class, false);
+        final var deserializer = new JacksonJsonDeserializer<>(QuackEvent.class, false);
         return new DefaultKafkaConsumerFactory<>(props, new UUIDDeserializer(), deserializer);
     }
 

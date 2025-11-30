@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest(classes = TestApplication.class, properties = {
         "spring.kafka.bootstrap-servers=${spring.embedded.kafka.brokers}",
 })
-@EmbeddedKafka(kraft = true)
+@EmbeddedKafka
 class NotificationServiceTest {
     @MockitoBean
     private EventRepository repository;
