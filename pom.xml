@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd">
+    <modelVersion>4.1.0</modelVersion>
 
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
     <parent>
@@ -15,7 +15,6 @@
     <groupId>com.muneebkhawaja</groupId>
     <artifactId>testing-cookbook</artifactId>
     <name>Testing Cookbook</name>
-
     <packaging>pom</packaging>
     <inceptionYear>2025</inceptionYear>
     <url>https://github.com/mtkhawaja/testing-cookbook</url>
@@ -29,15 +28,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Plugins -->
         <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
-        <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
     </properties>
 
-    <modules>
-        <module>modules/embedded-db</module>
-        <module>modules/embedded-kafka</module>
-        <module>modules/containers</module>
-        <module>modules/localstack</module>
-    </modules>
+    <subprojects>
+        <subproject>modules/embedded-db</subproject>
+        <subproject>modules/embedded-kafka</subproject>
+        <subproject>modules/containers</subproject>
+        <subproject>modules/localstack</subproject>
+    </subprojects>
 
     <scm>
         <connection>scm:git:ssh://git@github.com:mtkhawaja/testing-cookbook.git</connection>
@@ -110,32 +108,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/flatten-maven-plugin -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>${flatten-maven-plugin.version}</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
