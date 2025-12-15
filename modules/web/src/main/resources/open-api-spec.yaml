@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Testing Cookbook API
+  version: 1.0.0
+  description: |
+    OpenAPI specification for the Testing Cookbook example endpoints.
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /events:
+    post:
+      summary: Create event
+      operationId: createEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpsertRequest'
+      responses:
+        '201':
+          description: Event successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+
+  /events/{eventId}:
+    parameters:
+      - $ref: '#/components/parameters/EventIdParameter'
+    get:
+      summary: Get Event by ID
+      operationId: getEvent
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Not found
+
+    put:
+      summary: Replace Event by ID
+      operationId: replaceEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpsertRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Not found
+
+    delete:
+      summary: Delete event by ID
+      operationId: deleteEvent
+      responses:
+        '204':
+          description: Event deleted successfully
+
+    patch:
+      summary: Partially update event by ID
+      operationId: patchEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventPatchRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Not found
+
+components:
+  parameters:
+    EventIdParameter:
+      name: eventId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the event
+
+  schemas:
+    EventProperties:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Event title
+        severity:
+          $ref: '#/components/schemas/Severity'
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
+
+    EventUpsertRequest:
+      allOf:
+        - $ref: '#/components/schemas/EventProperties'
+
+    EventPatchRequest:
+      type: object
+      required:
+        - updateMask
+      properties:
+        updateMask:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: string
+            enum: [ title, severity, timestamp, description ]
+          description: |
+            Field paths to update. Only these fields will be applied.
+            Example: ["title","description"].
+        event:
+          $ref: '#/components/schemas/EventProperties'
+
+    Event:
+      allOf:
+        - type: object
+          required: [ id ]
+          properties:
+            id:
+              $ref: '#/components/schemas/EventId'
+        - $ref: '#/components/schemas/EventProperties'
+
+    EventId:
+      type: string
+      format: uuid
+      description: Unique identifier for the event
+
+    Severity:
+      type: string
+      description: Event severity
+      enum: [ INFO, WARN, ERROR ]

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd">
+    <modelVersion>4.1.0</modelVersion>
+
+    <parent>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>web-tests</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <springdoc.version>3.0.0</springdoc.version>
+        <openapi-generator-maven-plugin.version>7.17.0</openapi-generator-maven-plugin.version>
+        <openapi-jackson-databind-nullable.version>0.2.6</openapi-jackson-databind-nullable.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-bom</artifactId>
+                <version>${springdoc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webmvc-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Swagger / Code Generation -->
+
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-api -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${openapi-jackson-databind-nullable.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator-maven-plugin -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-spring-boot-server</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <generateApiTests>true</generateApiTests>
+                                <configHelp>true</configHelp>
+                            </configOptions>
+                            <inputSpec>${basedir}/src/main/resources/open-api-spec.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <generateApis>true</generateApis>
+                            <!-- Test generation failing,
+                            see: https://github.com/OpenAPITools/openapi-generator/issues/3318 -->
+                            <generateApiTests>true</generateApiTests>
+                            <generateModels>true</generateModels>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <apiPackage>${project.parent.groupId}.web.generated.api</apiPackage>
+                            <modelPackage>${project.parent.groupId}.web.generated.model</modelPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

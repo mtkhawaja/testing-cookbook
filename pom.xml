@@ -35,6 +35,7 @@
         <subproject>modules/embedded-kafka</subproject>
         <subproject>modules/containers</subproject>
         <subproject>modules/localstack</subproject>
+        <subproject>modules/web</subproject>
     </subprojects>
 
     <scm>
