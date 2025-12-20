@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd">
     <modelVersion>4.1.0</modelVersion>
 
     <parent>
@@ -8,42 +9,94 @@
 
     <artifactId>localstack-tests</artifactId>
     <name>LocalStack Tests</name>
+    <properties>
+        <spring-cloud-aws.version>4.0.0-M1</spring-cloud-aws.version>
+    </properties>
+
     <packaging>jar</packaging>
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-dependencies -->
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-dependencies</artifactId>
+                <version>${spring-cloud-aws.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
-        <!-- AWS SDK v2 for S3 and SQS (production code might use Spring Cloud AWS or AWS SDK directly) -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
-            <version>2.20.40</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-json -->
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sqs</artifactId>
-            <version>2.20.40</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-starter -->
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-starter-sqs -->
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter-sqs</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-starter-s3 -->
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter-s3</artifactId>
+        </dependency>
+
+
         <!-- Testcontainers LocalStack support -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-testcontainers -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-testcontainers -->
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-localstack -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers-localstack</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-junit-jupiter -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Spring Boot Starter Test (for Spring context and assertions) -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- (Optional) Spring Cloud AWS if using its S3/SQS integrations instead of raw SDK -->
-        <!-- <dependency>
-               <groupId>io.awspring.cloud</groupId>
-               <artifactId>spring-cloud-aws-starter-s3</artifactId> ...
-             <dependency> spring-cloud-aws-starter-sqs ... </dependency> -->
+        <!-- https://mvnrepository.com/artifact/org.awaitility/awaitility -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 

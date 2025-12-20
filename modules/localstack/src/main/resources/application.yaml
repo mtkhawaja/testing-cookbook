@@ -1,0 +1,5 @@
+object.repository.s3:
+  bucket-name: "example-bucket"
+  key-prefix: "assets"
+
+notifications.object-repository.events.queue: "example-queue"
