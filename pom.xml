@@ -32,6 +32,7 @@
 
     <subprojects>
         <subproject>modules/auto-configuration</subproject>
+        <subproject>modules/bdd</subproject>
         <subproject>modules/containers</subproject>
         <subproject>modules/embedded-db</subproject>
         <subproject>modules/embedded-kafka</subproject>

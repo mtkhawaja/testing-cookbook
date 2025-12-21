@@ -29,6 +29,7 @@ Suggestion: Use [sdkman](https://sdkman.io/) to configure java and maven version
 This repo is organized as a multi-project Maven project:
 
 - [`modules/auto-configuration`](./modules/auto-configuration/README.md) — Testing custom auto-configuration classes / custom spring starters using ApplicationContextRunner
+- [`modules/bdd`](./modules/bdd/README.md) — Behavior Driven Development (BDD) tests with Spring, Cucumber, Jupiter, and multiple `@CucumberContextConfiguration`
 - [`modules/containers`](./modules/containers/README.md) — Integration tests with real services via Testcontainers
 - [`modules/embedded-db`](./modules/embedded-db/README.md) — In-memory DB testing patterns (e.g., H2, Derby, HSQLDB)
 - [`modules/embedded-kafka`](./modules/embedded-kafka/README.md) — Messaging tests with embedded Kafka
