@@ -31,9 +31,10 @@
     </properties>
 
     <subprojects>
+        <subproject>modules/auto-configuration</subproject>
+        <subproject>modules/containers</subproject>
         <subproject>modules/embedded-db</subproject>
         <subproject>modules/embedded-kafka</subproject>
-        <subproject>modules/containers</subproject>
         <subproject>modules/localstack</subproject>
         <subproject>modules/web</subproject>
     </subprojects>
