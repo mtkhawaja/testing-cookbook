@@ -37,6 +37,7 @@
         <subproject>modules/embedded-db</subproject>
         <subproject>modules/embedded-kafka</subproject>
         <subproject>modules/localstack</subproject>
+        <subproject>modules/testng-tests</subproject>
         <subproject>modules/web</subproject>
     </subprojects>
 
