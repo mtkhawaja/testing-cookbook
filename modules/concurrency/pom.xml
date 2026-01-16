@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd">
+    <modelVersion>4.1.0</modelVersion>
+
+    <parent>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>concurrency-tests</artifactId>
+    <name>Concurrency Tests</name>
+    <properties>
+        <fray.version>0.7.1</fray.version>
+    </properties>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/net.jcip/jcip-annotations -->
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- https://github.com/cmu-pasta/fray -->
+        <!-- https://mvnrepository.com/artifact/org.pastalab.fray/fray-junit -->
+        <dependency>
+            <groupId>org.pastalab.fray</groupId>
+            <artifactId>fray-junit</artifactId>
+            <version>${fray.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <!-- https://mvnrepository.com/artifact/org.pastalab.fray.maven/fray-plugins-maven -->
+            <plugin>
+                <groupId>org.pastalab.fray.maven</groupId>
+                <artifactId>fray-plugins-maven</artifactId>
+                <version>${fray.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-fray</id>
+                        <goals>
+                            <goal>prepare-fray</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
