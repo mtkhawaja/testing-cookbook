@@ -40,6 +40,7 @@
         <subproject>modules/http-client-tests</subproject>
         <subproject>modules/localstack</subproject>
         <subproject>modules/testng-tests</subproject>
+        <subproject>modules/unit-tests</subproject>
         <subproject>modules/web</subproject>
     </subprojects>
 
