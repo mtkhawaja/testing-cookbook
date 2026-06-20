@@ -14,6 +14,8 @@
         <springdoc.version>3.0.0</springdoc.version>
         <openapi-generator-maven-plugin.version>7.17.0</openapi-generator-maven-plugin.version>
         <openapi-jackson-databind-nullable.version>0.2.6</openapi-jackson-databind-nullable.version>
+        <wiremock.version>3.13.2</wiremock.version>
+        <archunit.version>1.4.2</archunit.version>
     </properties>
 
     <dependencyManagement>
@@ -71,6 +73,23 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- WireMock: stub the Events HTTP server to test client-side calls (standalone = shaded, -->
+        <!-- avoids Jetty/Jackson clashes with Spring Boot) -->
+        <!-- https://mvnrepository.com/artifact/org.wiremock/wiremock-standalone -->
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- ArchUnit: architecture/fitness rules over this module's classes -->
+        <!-- https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit5 -->
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
