@@ -12,12 +12,37 @@
 
     <packaging>jar</packaging>
 
+    <properties>
+        <instancio.version>5.6.0</instancio.version>
+    </properties>
+
     <dependencies>
-        <!-- Spring Boot Test (includes JUnit Jupiter, AssertJ, Mockito) -->
+        <!-- SLF4J facade: the logging example logs through it from main code -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- Spring Boot Test (includes JUnit Jupiter, AssertJ, Mockito, OutputCaptureExtension) -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Logback: SLF4J binding at test runtime + ListAppender for capturing log events -->
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Instancio: auto-generates populated test objects (instancio-junit includes core) -->
+        <!-- https://mvnrepository.com/artifact/org.instancio/instancio-junit -->
+        <dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio-junit</artifactId>
+            <version>${instancio.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
