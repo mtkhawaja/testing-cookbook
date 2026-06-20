@@ -31,6 +31,7 @@
     </properties>
 
     <subprojects>
+        <subproject>modules/arch-unit</subproject>
         <subproject>modules/auto-configuration</subproject>
         <subproject>modules/bdd</subproject>
         <subproject>modules/concurrency</subproject>
